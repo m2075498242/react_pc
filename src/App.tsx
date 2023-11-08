@@ -1,20 +1,46 @@
-import { useState } from 'react'
-import Comp1 from './components/Comp1/Comp1'
-import Comp2 from './components/Comp2/Comp2'
-import { useRoutes, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useRoutes, useLocation, useNavigate, Link } from 'react-router-dom'
+import { message } from "antd"
 import router from './router'
-function App() {
-  const [count, setCount] = useState(0)
+// 去登陆
+function Login() {
+  const navigate = useNavigate()
+  // 加载完这个组件实现跳转
+  useEffect(() => {
+    navigate('/login')
+    message.error('请重新登录')
+  }, [])
+  return <div></div>
+}
+// 登录成功
+function ToPage() {
+  const navigate = useNavigate()
+  // 加载完这个组件实现跳转
+  useEffect(() => {
+    navigate('/page1')
+    message.warning('你已经登录过了')
+  }, [])
+  return <div></div>
+}
+function BeforeRouterEnter() {
   const Outlet = useRoutes(router)
+  const location = useLocation()
+  let token = localStorage.getItem('token')
+  console.log(location.pathname === '/login' && token);
+
+  if (location.pathname === '/login' && token) {
+    return <ToPage />
+  }
+  if (location.pathname !== '/login' && !token) {
+    return <Login />
+  }
+  return Outlet
+}
+function App() {
   return (
     <div className="App">
-      {/* <Link to={'/about'}>about</Link>
-      <Link to={'/home'}>home</Link>
-      <Link to={'/user'}>user</Link> */}
-      
       {/* 占位符组件，类似于窗口，用来展示组件，有点像router-view */}
-      {/* <Outlet /> */}
-      {Outlet}
+      <BeforeRouterEnter />
     </div>
   )
 }

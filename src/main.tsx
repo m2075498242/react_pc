@@ -10,12 +10,15 @@ import "@/assets/style/global.scss"
 // 组件样式
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
-// import Router from './router/index'
-
+// 状态管理
+import { Provider } from 'react-redux'
+import stroe from '@/store'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={stroe}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </Provider>
+  // </React.StrictMode>,
 )

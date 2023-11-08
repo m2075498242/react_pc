@@ -1,0 +1,58 @@
+.login {
+  color: #f60;
+  text-align: center;
+  position: relative;
+
+  .loginBox {
+    position: absolute;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(255, 0, 0);
+
+    .title {
+      color: #999;
+
+      :global {
+        .captchBox {
+          display: flex;
+
+          .captch {
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          .img {
+            border: 1px solid #1677ff;
+            border-left: none;
+
+            img {
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+    }
+
+    :global {
+
+      .ant-input,
+      .ant-input-password {
+        background-color: rgba(0, 0, 0, 0);
+        color: #fff;
+        border-color: #1677ff;
+
+        &::placeholder {
+          font-size: 10px;
+          color: rgb(7, 95, 217,.5);
+        }
+      }
+    }
+
+    :global .ant-input-suffix .anticon svg {
+      color: #1677ff !important;
+    }
+  }
+}
