@@ -11,7 +11,7 @@ export default function Login() {
   useEffect(() => {
     initLogin()
     window.onresize = function () { initLogin() }
-    changeImg()
+    // changeImg()
   }, [])
   // 获取仓库数据
   const { num } = useSelector((state: RootState) => ({
@@ -33,33 +33,35 @@ export default function Login() {
     setCaptch(e.target.value)
   }
   const login = async () => {
-    if (!userVal || !pwdVal || !captch) {
+    if (!userVal || !pwdVal) {
       return message.warning('请将信息输入完整')
     }
     // 登录
-    let res = await loginApi({
-      username: userVal,
-      password: pwdVal,
-      code: captch,
-      uuid: localStorage.getItem('uuid') as string
-    })
-    if (res.code === 200) {
-      message.success('登录成功')
-      // 提示 保存token 跳转 删除本地保存的uuid
-      localStorage.setItem('token', res.token)
-      NavigateTo('/page1')
-      localStorage.removeItem('uuid')
-    }
+    // let res = await loginApi({
+    //   username: userVal,
+    //   password: pwdVal,
+    //   code: captch,
+    //   uuid: localStorage.getItem('uuid') as string
+    // })
+    message.success('登录成功')
+    NavigateTo('/Home')
+    // if (res.code === 200) {
+    //   message.success('登录成功')
+    //   // 提示 保存token 跳转 删除本地保存的uuid
+    //   localStorage.setItem('token', res.token)
+    //   NavigateTo('/page1')
+    //   localStorage.removeItem('uuid')
+    // }
   }
-  const changeImg = async () => {
-    let res = await captchaApi()
-    if (res.code === 200) {
-      setSaveCaptch('data:image/png;base64,' + res.img)
-      // 存储uuid
-      localStorage.uuid = res.uuid
-      console.log(res);
-    }
-  }
+  // const changeImg = async () => {
+  //   let res = await captchaApi()
+  //   if (res.code === 200) {
+  //     setSaveCaptch('data:image/png;base64,' + res.img)
+  //     // 存储uuid
+  //     localStorage.uuid = res.uuid
+  //     console.log(res);
+  //   }
+  // }
   // 发送登录请求
   return (
     <div className={style.login}>
@@ -73,12 +75,12 @@ export default function Login() {
           <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
             <Input maxLength={20} onChange={changeUser} placeholder="用户名" />
             <Input.Password onChange={changePwd} placeholder="密码" />
-            <div className="captchBox">
+            {/* <div className="captchBox">
               <Input onChange={changeCaptch} maxLength={6} className="captch" placeholder="验证码" />
               <div className="img">
                 <img height={30} onClick={changeImg} src={saveCaptch} alt="" />
               </div>
-            </div>
+            </div> */}
             <Button onClick={login} type="primary" block>
               登录
             </Button>

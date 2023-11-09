@@ -28,11 +28,11 @@ function BeforeRouterEnter() {
   let token = localStorage.getItem('token')
   console.log(location.pathname === '/login' && token);
 
-  if (location.pathname === '/login' && token) {
-    return <ToPage />
-  }
+  // if (location.pathname === '/login' && token) {
+  //   return <ToPage />
+  // }
   if (location.pathname !== '/login' && !token) {
-    return <Login />
+    // return <Login />
   }
   return Outlet
 }
