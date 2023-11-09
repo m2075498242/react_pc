@@ -1,5 +1,5 @@
 import style from "./login.module.scss"
-import initLogin from './init.ts'
+import initLogin from './init'
 import { useNavigate } from 'react-router-dom'
 import { Input, Space, Button, message } from "antd"
 import { ChangeEvent, useState } from "react"
